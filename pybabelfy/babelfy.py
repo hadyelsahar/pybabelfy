@@ -4,7 +4,7 @@ Created on 02/12/2015
 @author: David
 '''
 
-import urllib
+import urllib2
 import json
 
 class BabelfyJSONKeys(object):
@@ -130,11 +130,11 @@ class Babelfy(object):
         values = [text,lang,key,anntype,annres,th,match,mcs,dens,
                             cands,postag,extaida]
         
-        query = urllib.urlencode({param:value for param,value in zip(self.PARAMETERS, values)
+        query = urllib2.urlencode({param:value for param,value in zip(self.PARAMETERS, values)
                          if value is not None})
 
         print query
-        json_string = urllib.urlopen(self.API+self.DISAMBIGUATE+query).read()
+        json_string = urllib2.urlopen(self.API+self.DISAMBIGUATE+query).read()
         #print json_string
         babelfy_jsons = json.loads(json_string)
         return [SemanticAnnotation(babelfy_json) for babelfy_json in babelfy_jsons]
